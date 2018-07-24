@@ -26,6 +26,19 @@ class App extends Component {
       myTodolist:currTodolist
     });
   }
+  onChange(id){
+    console.log("onchange",id);
+    let currTodolist = this.state.myTodolist;
+    currTodolist.map((item)=>{
+      if(item.id===id){
+        item.status = !item.status;
+        console.log(item.id,item.value,item.status);
+      }
+    });
+    this.setState({
+      myTodolist:currTodolist
+    });
+  }
   render() {
     return (
       <div className="App">
@@ -36,7 +49,16 @@ class App extends Component {
           <button onClick={this.addTodoList}>+</button>
           {
             this.state.myTodolist.map(item => {
-            return <p><input type="checkbox"/>{item.value}</p>
+            return (
+              <p>
+              <input type="checkbox" onChange={this.onChange.bind(this,item.id)}/>
+              {
+                item.status?item.value:"false"
+                
+              }
+              
+              </p>
+              )
             })
           }         
       </div>
