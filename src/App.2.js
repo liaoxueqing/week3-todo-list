@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class App extends Component {
+class App2 extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -40,38 +40,17 @@ class App extends Component {
       myTodolist:currTodolist
     });
   }
-  doubleClick(id){
-    // console.log("double click",id);
-    // document.getElementById(id).contentEditable=true;
-
+  doubleClick(curritem){
+    console.log("double click",curritem);
     let currTodolist = this.state.myTodolist;
     currTodolist.map((item)=>{
-      if(item.id===id){
+      if(item===curritem){
         item.complete = !item.complete;
-        console.log(item.id,item.value,item.status);
       }
     });
     this.setState({
       myTodolist:currTodolist
     });
-    // this.currTd.contentEditable=true;
-  }
-  blur(id){
-    console.log("blur",id);
-    let newv = document.getElementById(id).innerHTML;
-    console.log(newv);
-    let currTodolist = this.state.myTodolist;
-    currTodolist.map((item)=>{
-      if(item.id===id){
-        item.value = newv;
-      }
-    });
-    this.setState({
-      myTodolist:currTodolist
-    });
-  }
-  tdChange(){
-    console.log('td change');
   }
   render() {
     return (
@@ -81,29 +60,30 @@ class App extends Component {
             this.lastTodo = element;
           }}/>
           <button onClick={this.addTodoList}>+</button>
-          <table style={{margin:'auto'}}><tbody>
           {
             this.state.myTodolist.map(item => {
             return (
-              
-              <tr>
-                <td>
+              <div>
                   <input type="checkbox" onChange={this.onChange.bind(this,item.id)}/>
-                </td>
-                <td id={item.id} onDoubleClick={this.doubleClick.bind(this,item.id)}
-                    onBlur={this.blur.bind(this,item.id)}
-                >
                   {item.status?item.value:<del>{item.value}</del>}
-                  {/* {item.status?(!item.complete?item.value:<input value={item.value}/>):<del>{item.value}</del>} */}
-                </td>
-              </tr>
+                  <p>
+                  {
+                    !item.complete
+                    ?"不可编辑"
+                    // <p onDoubleClick={this.doubleClick(item)}>
+                    //   {item.status?item.value:<del>{item.value}</del>}
+                    // </p>
+                    :
+                    <input value={item.value}/>
+                  }
+                  </p>
+               </div>
               )
             })
           }   
-          </tbody></table> 
       </div>
     );
   }
 }
 
-export default App;
+export default App2;

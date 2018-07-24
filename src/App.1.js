@@ -41,34 +41,9 @@ class App extends Component {
     });
   }
   doubleClick(id){
-    // console.log("double click",id);
+    console.log("double click",id);
     // document.getElementById(id).contentEditable=true;
-
-    let currTodolist = this.state.myTodolist;
-    currTodolist.map((item)=>{
-      if(item.id===id){
-        item.complete = !item.complete;
-        console.log(item.id,item.value,item.status);
-      }
-    });
-    this.setState({
-      myTodolist:currTodolist
-    });
     // this.currTd.contentEditable=true;
-  }
-  blur(id){
-    console.log("blur",id);
-    let newv = document.getElementById(id).innerHTML;
-    console.log(newv);
-    let currTodolist = this.state.myTodolist;
-    currTodolist.map((item)=>{
-      if(item.id===id){
-        item.value = newv;
-      }
-    });
-    this.setState({
-      myTodolist:currTodolist
-    });
   }
   tdChange(){
     console.log('td change');
@@ -76,6 +51,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <table><tr>
+          <td ref={element=>{
+            this.currTd = element;
+            }} onDoubleClick={this.doubleClick}>111</td>
+          </tr></table>
+
+
           <h1 className="App-title">TO DO LIST</h1>
           <input type="text" ref={element=>{
             this.lastTodo = element;
@@ -85,22 +67,20 @@ class App extends Component {
           {
             this.state.myTodolist.map(item => {
             return (
-              
               <tr>
                 <td>
                   <input type="checkbox" onChange={this.onChange.bind(this,item.id)}/>
                 </td>
                 <td id={item.id} onDoubleClick={this.doubleClick.bind(this,item.id)}
-                    onBlur={this.blur.bind(this,item.id)}
+                    contentEditable={item.complete}
                 >
                   {item.status?item.value:<del>{item.value}</del>}
-                  {/* {item.status?(!item.complete?item.value:<input value={item.value}/>):<del>{item.value}</del>} */}
                 </td>
               </tr>
               )
             })
           }   
-          </tbody></table> 
+          </tbody></table>      
       </div>
     );
   }
