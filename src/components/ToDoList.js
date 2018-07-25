@@ -13,8 +13,10 @@ class ToDoList extends Component {
     super(props);
   }
   render() {
-    // const myTodos = this.props.todos.myTodos;
-    // console.log("components", myTodos);
+    const myTodos =
+      this.props.todos.filterTodos.length !== 0
+        ? this.props.todos.filterTodos
+        : this.props.todos.myTodos;
     return (
       <div className="text-center">
         <div className="text-center" style={{ margin: '10px' }}>
@@ -26,7 +28,7 @@ class ToDoList extends Component {
             }}
           />
           <button
-            onClick={e => {
+            onClick={() => {
               this.props.searchTodo(this.searchItem.value);
             }}
           >
@@ -42,7 +44,7 @@ class ToDoList extends Component {
             }}
           />
           <button
-            onClick={e => {
+            onClick={() => {
               this.props.addTodo(this.lastItem.value);
             }}
           >
@@ -51,8 +53,14 @@ class ToDoList extends Component {
         </div>
         <div className="text-center col-md-4" style={{ margin: '10px auto' }}>
           <table className="table">
+            <thead style={{ backgroundColor: '#555', color: '#eee' }}>
+              <tr>
+                <th>check</th>
+                <th>content</th>
+              </tr>
+            </thead>
             <tbody>
-              {this.props.todos.myTodos.map(item => {
+              {myTodos.map(item => {
                 return (
                   <tr key={item.id}>
                     <td>

@@ -2,12 +2,13 @@ const ADD_TODO = 'ADD_TODO';
 const EDIT_TODO = 'EDIT_TODO';
 const COMPLETE_TODO = 'COMPLETE_TODO';
 const CAN_EDIT_TODO = 'CAN_EDIT_TODO';
-const SEARCH_TODO = 'SEACH_TODO';
+const SEARCH_TODO = 'SEARCH_TODO';
 /**
  * status:true可编辑状态
  * status:false不可编辑状态
  */
 const initialState = {
+  filterTodos: [],
   searchItem: '',
   myTodos: [
     { id: 1, name: 'todolist1', status: false, completed: false },
@@ -20,6 +21,7 @@ export default function todos(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
       return {
+        filterTodos: state.filterTodos,
         searchItem: state.searchItem,
         myTodos: [
           ...state.myTodos,
@@ -58,6 +60,7 @@ export default function todos(state = initialState, action) {
         return todo;
       });
       return {
+        filterTodos: state.filterTodos,
         searchItem: state.searchItem,
         myTodos: [...state.myTodos]
       };
@@ -70,6 +73,7 @@ export default function todos(state = initialState, action) {
         return todo;
       });
       return {
+        filterTodos: state.filterTodos,
         searchItem: state.searchItem,
         myTodos: [...state.myTodos]
       };
@@ -82,12 +86,26 @@ export default function todos(state = initialState, action) {
         return todo;
       });
       return {
+        filterTodos: state.filterTodos,
         searchItem: state.searchItem,
         myTodos: [...state.myTodos]
       };
 
     case SEARCH_TODO:
       console.log(action.searchItem);
+      const myTodos = state.myTodos;
+      const filterTodos = [];
+      myTodos.map(todo => {
+        if (todo.name.includes(action.searchItem)) {
+          filterTodos.push(todo);
+        }
+      });
+      console.log('search_todo', action.searchItem, filterTodos);
+      return {
+        filterTodos: filterTodos,
+        searchItem: state.searchItem,
+        myTodos: [...state.myTodos]
+      };
     // return state.myTodos.map(
     //   todo =>
     //     todo.name === action.id

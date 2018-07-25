@@ -7,7 +7,7 @@ class UserInfo extends Component {
   render() {
     return (
       <div className="text-center" style={{ margin: '30px auto' }}>
-        {this.props.userInfo.name}'s todo list
+        <h1>{this.props.userInfo.name}'s TODO LIST</h1>
       </div>
     );
   }
