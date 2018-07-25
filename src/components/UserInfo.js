@@ -6,7 +6,7 @@ class UserInfo extends Component {
   }
   render() {
     console.log(this.props.userInfo);
-    return <div>{this.props.userInfo.name}</div>;
+    return <div>{this.props.userInfo.name}'s todo list</div>;
   }
 }
 export default UserInfo;

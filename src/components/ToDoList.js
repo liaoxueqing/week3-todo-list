@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-// import { connect } from "react-redux";
+import { connect } from 'react-redux';
+import {
+  editTodo,
+  completeTodo,
+  addTodo,
+  deleteTodo,
+  canEditTodo
+} from '../actions/index';
 class ToDoList extends Component {
   constructor(props) {
     super(props);
@@ -8,40 +15,60 @@ class ToDoList extends Component {
     console.log(this.props.todos);
     return (
       <div>
-        {/* <input
+        <input
           type="text"
+          placeholder="搜索item"
           ref={element => {
-            this.lastTodo = element;
+            this.seachItem = element;
           }}
         />
         <button
           onClick={e => {
-            this.props.addToDoItem(e.target.value);
+            this.props.addTodo(this.seachItem.value);
+          }}
+        >
+          搜索
+        </button>
+        <div />
+        <input
+          type="text"
+          placeholder="新增item"
+          ref={element => {
+            this.lastItem = element;
+          }}
+        />
+        <button
+          onClick={e => {
+            this.props.addTodo(this.lastItem.value);
           }}
         >
           +
-        </button> */}
-
+        </button>
         <table>
           <tbody>
             {this.props.todos.map(item => {
               return (
-                <tr>
+                <tr key={item.id}>
                   <td>
                     <input
                       type="checkbox"
-                      // onChange={e => {
-                      //   this.props.addTodoItem(e.target.value);
-                      // }}
+                      onChange={e => {
+                        this.props.completeTodo(item.id);
+                      }}
                     />
                   </td>
                   <td
-                    id={item.id}
-                    // onDoubleClick={this.doubleClick.bind(this, item.id)}
-                    // onBlur={this.blur.bind(this, item.id)}
+                    contentEditable={item.status}
+                    onDoubleClick={e => {
+                      this.props.canEditTodo(item.id);
+                    }}
+                    onBlur={e => {
+                      this.props.editTodo(item.id, e.target.innerHTML);
+                    }}
                   >
-                    {item.status ? item.name : <del>{item.value}</del>}
+                    {item.completed ? <del>{item.name}</del> : item.name}
                   </td>
+                  <td>{item.status ? 'true' : 'false'}</td>
                 </tr>
               );
             })}
@@ -51,17 +78,22 @@ class ToDoList extends Component {
     );
   }
 }
-export default ToDoList;
+// export default ToDoList;
 
-// const mapStateToProps = state => {
-//   return {
-//     todoList: state.todos
-//   };
-// };
-// const mapDispatchToProps = {
-//   addTodoIem
-// };
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(ToDoList);
+const mapActionToState = state => {
+  return {
+    todos: state.todos
+  };
+};
+const mapActionToDispatch = {
+  editTodo,
+  completeTodo,
+  addTodo,
+  deleteTodo,
+  canEditTodo
+  // noEditTodo
+};
+export default connect(
+  mapActionToState,
+  mapActionToDispatch
+)(ToDoList);
