@@ -3,3 +3,17 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.table {
+  width: 400px;
+  margin: auto;
+}
+.todo-list {
+  margin: 10px auto;
+}
+.user-info {
+  margin-top: 30px;
+  line-height: 100px;
+}
+.height-div {
+  margin: 30px;
+}

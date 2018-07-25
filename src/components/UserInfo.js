@@ -5,8 +5,11 @@ class UserInfo extends Component {
     super(props);
   }
   render() {
-    console.log(this.props.userInfo);
-    return <div>{this.props.userInfo.name}'s todo list</div>;
+    return (
+      <div className="text-center" style={{ margin: '30px auto' }}>
+        {this.props.userInfo.name}'s todo list
+      </div>
+    );
   }
 }
 export default UserInfo;

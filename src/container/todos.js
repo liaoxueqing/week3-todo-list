@@ -4,10 +4,8 @@ import ToDoList from '../components/ToDoList';
 
 const mapStateToProps = state => {
   const todos = state.todos;
-  debugger;
-  console.log('todos', todos);
   return {
-    todos
+    todos: todos
   };
 };
 

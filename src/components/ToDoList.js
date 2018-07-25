@@ -5,75 +5,81 @@ import {
   completeTodo,
   addTodo,
   deleteTodo,
-  canEditTodo
+  canEditTodo,
+  searchTodo
 } from '../actions/index';
 class ToDoList extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    console.log(this.props.todos);
+    // const myTodos = this.props.todos.myTodos;
+    // console.log("components", myTodos);
     return (
-      <div>
-        <input
-          type="text"
-          placeholder="搜索item"
-          ref={element => {
-            this.seachItem = element;
-          }}
-        />
-        <button
-          onClick={e => {
-            this.props.addTodo(this.seachItem.value);
-          }}
-        >
-          搜索
-        </button>
-        <div />
-        <input
-          type="text"
-          placeholder="新增item"
-          ref={element => {
-            this.lastItem = element;
-          }}
-        />
-        <button
-          onClick={e => {
-            this.props.addTodo(this.lastItem.value);
-          }}
-        >
-          +
-        </button>
-        <table>
-          <tbody>
-            {this.props.todos.map(item => {
-              return (
-                <tr key={item.id}>
-                  <td>
-                    <input
-                      type="checkbox"
-                      onChange={e => {
-                        this.props.completeTodo(item.id);
+      <div className="text-center">
+        <div className="text-center" style={{ margin: '10px' }}>
+          <input
+            type="text"
+            placeholder="搜索item"
+            ref={element => {
+              this.searchItem = element;
+            }}
+          />
+          <button
+            onClick={e => {
+              this.props.searchTodo(this.searchItem.value);
+            }}
+          >
+            搜索
+          </button>
+        </div>
+        <div className="text-center" style={{ margin: '10px' }}>
+          <input
+            type="text"
+            placeholder="新增item"
+            ref={element => {
+              this.lastItem = element;
+            }}
+          />
+          <button
+            onClick={e => {
+              this.props.addTodo(this.lastItem.value);
+            }}
+          >
+            新增
+          </button>
+        </div>
+        <div className="text-center col-md-4" style={{ margin: '10px auto' }}>
+          <table className="table">
+            <tbody>
+              {this.props.todos.myTodos.map(item => {
+                return (
+                  <tr key={item.id}>
+                    <td>
+                      <input
+                        type="checkbox"
+                        onChange={e => {
+                          this.props.completeTodo(item.id);
+                        }}
+                      />
+                    </td>
+                    <td
+                      contentEditable={item.status}
+                      onDoubleClick={e => {
+                        this.props.canEditTodo(item.id);
                       }}
-                    />
-                  </td>
-                  <td
-                    contentEditable={item.status}
-                    onDoubleClick={e => {
-                      this.props.canEditTodo(item.id);
-                    }}
-                    onBlur={e => {
-                      this.props.editTodo(item.id, e.target.innerHTML);
-                    }}
-                  >
-                    {item.completed ? <del>{item.name}</del> : item.name}
-                  </td>
-                  <td>{item.status ? 'true' : 'false'}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                      onBlur={e => {
+                        this.props.editTodo(item.id, e.target.innerHTML);
+                      }}
+                    >
+                      {item.completed ? <del>{item.name}</del> : item.name}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
@@ -90,7 +96,8 @@ const mapActionToDispatch = {
   completeTodo,
   addTodo,
   deleteTodo,
-  canEditTodo
+  canEditTodo,
+  searchTodo
   // noEditTodo
 };
 export default connect(
