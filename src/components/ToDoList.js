@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 import {
   editTodo,
   completeTodo,
   addTodo,
   deleteTodo,
   canEditTodo,
-  searchTodo
+  searchTodo,
+  setDetailTodo
 } from '../actions/index';
 class ToDoList extends Component {
   constructor(props) {
     super(props);
   }
   render() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const mouth = today.getMonth() + 1;
+    const day = today.getDate();
+
+    console.log(today, year, mouth, day);
+
     const myTodos =
       this.props.todos.filterTodos.length !== 0
         ? this.props.todos.filterTodos
@@ -45,7 +55,8 @@ class ToDoList extends Component {
           />
           <button
             onClick={() => {
-              this.props.addTodo(this.lastItem.value);
+              const time = year + '-' + mouth + '-' + day;
+              this.props.addTodo(this.lastItem.value, time);
             }}
           >
             新增
@@ -57,12 +68,19 @@ class ToDoList extends Component {
               <tr>
                 <th>check</th>
                 <th>content</th>
+                <th>time</th>
               </tr>
             </thead>
             <tbody>
               {myTodos.map(item => {
                 return (
-                  <tr key={item.id}>
+                  <tr
+                    key={item.id}
+                    onClick={() => {
+                      this.props.setDetailTodo(item.id);
+                      browserHistory.push('/todoInfo');
+                    }}
+                  >
                     <td>
                       <input
                         type="checkbox"
@@ -73,15 +91,16 @@ class ToDoList extends Component {
                     </td>
                     <td
                       contentEditable={item.status}
-                      onDoubleClick={e => {
-                        this.props.canEditTodo(item.id);
-                      }}
-                      onBlur={e => {
-                        this.props.editTodo(item.id, e.target.innerHTML);
-                      }}
+                      // onDoubleClick={e => {
+                      //   this.props.canEditTodo(item.id);
+                      // }}
+                      // onBlur={e => {
+                      //   this.props.editTodo(item.id, e.target.innerHTML);
+                      // }}
                     >
                       {item.completed ? <del>{item.name}</del> : item.name}
                     </td>
+                    <td>{item.generateTime}</td>
                   </tr>
                 );
               })}
@@ -104,7 +123,8 @@ const mapDispatchToProps = {
   addTodo,
   deleteTodo,
   canEditTodo,
-  searchTodo
+  searchTodo,
+  setDetailTodo
 };
 export default connect(
   mapStateToProps,

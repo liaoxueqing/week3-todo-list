@@ -3,17 +3,43 @@ const EDIT_TODO = 'EDIT_TODO';
 const COMPLETE_TODO = 'COMPLETE_TODO';
 const CAN_EDIT_TODO = 'CAN_EDIT_TODO';
 const SEARCH_TODO = 'SEARCH_TODO';
+const SET_DETAIL_TODO = 'SET_DETAIL_TODO';
 /**
  * status:true可编辑状态
  * status:false不可编辑状态
  */
 const initialState = {
   filterTodos: [],
+  detailTodo: {
+    id: 1,
+    name: 'todolist1',
+    status: false,
+    completed: false,
+    generateTime: '2018 - 7 - 18'
+  },
   searchItem: '',
   myTodos: [
-    { id: 1, name: 'todolist1', status: false, completed: false },
-    { id: 2, name: 'todolist2', status: false, completed: false },
-    { id: 3, name: 'todolist3', status: false, completed: false }
+    {
+      id: 1,
+      name: 'todolist1',
+      status: false,
+      completed: false,
+      generateTime: '2018-7-26'
+    },
+    {
+      id: 2,
+      name: 'todolist2',
+      status: false,
+      completed: false,
+      generateTime: '2018-7-26'
+    },
+    {
+      id: 3,
+      name: 'todolist3',
+      status: false,
+      completed: false,
+      generateTime: '2018-7-26'
+    }
   ]
 };
 
@@ -23,33 +49,18 @@ export default function todos(state = initialState, action) {
       return {
         filterTodos: state.filterTodos,
         searchItem: state.searchItem,
+        detailTodo: state.detailTodo,
         myTodos: [
           ...state.myTodos,
           {
             id: state.myTodos.length + 1,
             name: action.name,
             status: false,
-            completed: false
+            completed: false,
+            generateTime: action.time
           }
         ]
       };
-
-    // case EDIT_TODO:
-    //   return state.myTodos.map(
-    //     todo =>
-    //       todo.id === action.id
-    //         ? {
-    //             searchItem: state.searchItem,
-    //             myTodos: [
-    //               ...state.myTodos,
-    //               { ...todo, name: action.name, status: false }
-    //             ]
-    //           }
-    //         : {
-    //             searchItem: state.searchItem,
-    //             myTotodo: [...state.myTodos, { ...todo }]
-    //           }
-    //   );
 
     case EDIT_TODO:
       state.myTodos.map(todo => {
@@ -61,6 +72,7 @@ export default function todos(state = initialState, action) {
       });
       return {
         filterTodos: state.filterTodos,
+        detailTodo: state.detailTodo,
         searchItem: state.searchItem,
         myTodos: [...state.myTodos]
       };
@@ -74,6 +86,7 @@ export default function todos(state = initialState, action) {
       });
       return {
         filterTodos: state.filterTodos,
+        detailTodo: state.detailTodo,
         searchItem: state.searchItem,
         myTodos: [...state.myTodos]
       };
@@ -87,12 +100,12 @@ export default function todos(state = initialState, action) {
       });
       return {
         filterTodos: state.filterTodos,
+        detailTodo: state.detailTodo,
         searchItem: state.searchItem,
         myTodos: [...state.myTodos]
       };
 
     case SEARCH_TODO:
-      console.log(action.searchItem);
       const myTodos = state.myTodos;
       const filterTodos = [];
       myTodos.map(todo => {
@@ -100,25 +113,27 @@ export default function todos(state = initialState, action) {
           filterTodos.push(todo);
         }
       });
-      console.log('search_todo', action.searchItem, filterTodos);
       return {
         filterTodos: filterTodos,
+        detailTodo: state.detailTodo,
         searchItem: state.searchItem,
         myTodos: [...state.myTodos]
       };
-    // return state.myTodos.map(
-    //   todo =>
-    //     todo.name === action.id
-    //       ? {
-    //           searchItem: state.searchItem,
-    //           myTodos: [...state.myTodos, { ...todo, status: !action.status }]
-    //         }
-    //       : {
-    //           searchItem: state.searchItem,
-    //           myTodos: [...state.myTodos, { ...todo }]
-    //         }
-    // );
+    case SET_DETAIL_TODO:
+      let detailTodoInfo = {};
+      const len = state.myTodos.length;
+      for (let i = 0; i < len; i++) {
+        if (state.myTodos[i].id === action.id) {
+          detailTodoInfo = Object.assign({}, state.myTodos[i]);
+        }
+      }
 
+      return {
+        filterTodos: state.filterTodos,
+        detailTodo: detailTodoInfo,
+        searchItem: state.searchItem,
+        myTodos: state.myTodos
+      };
     default:
       return state;
   }
