@@ -1,6 +1,6 @@
 import React from 'react';
 import UserInfo from '../container/userInfo';
-import ToDoList from '../container/todos';
+import ToDoList from '../components/ToDoList';
 
 const App = () => (
   <div>
