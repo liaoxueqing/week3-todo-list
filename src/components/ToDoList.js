@@ -19,7 +19,7 @@ class ToDoList extends Component {
         : this.props.todos.myTodos;
     return (
       <div className="text-center">
-        <div className="text-center" style={{ margin: '10px' }}>
+        <div className="text-center margin-div">
           <input
             type="text"
             placeholder="搜索item"
@@ -35,7 +35,7 @@ class ToDoList extends Component {
             搜索
           </button>
         </div>
-        <div className="text-center" style={{ margin: '10px' }}>
+        <div className="text-center margin-div">
           <input
             type="text"
             placeholder="新增item"
@@ -51,9 +51,9 @@ class ToDoList extends Component {
             新增
           </button>
         </div>
-        <div className="text-center col-md-4" style={{ margin: '10px auto' }}>
+        <div className="text-center col-md-4 margin-div">
           <table className="table">
-            <thead style={{ backgroundColor: '#555', color: '#eee' }}>
+            <thead>
               <tr>
                 <th>check</th>
                 <th>content</th>
@@ -92,7 +92,6 @@ class ToDoList extends Component {
     );
   }
 }
-// export default ToDoList;
 
 const mapStateToProps = state => {
   return {
@@ -106,7 +105,6 @@ const mapDispatchToProps = {
   deleteTodo,
   canEditTodo,
   searchTodo
-  // noEditTodo
 };
 export default connect(
   mapStateToProps,

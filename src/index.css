@@ -7,13 +7,10 @@ body {
   width: 400px;
   margin: auto;
 }
-.todo-list {
+.table thead {
+  background-color: #555;
+  color: #eee;
+}
+.margin-div {
   margin: 10px auto;
-}
-.user-info {
-  margin-top: 30px;
-  line-height: 100px;
-}
-.height-div {
-  margin: 30px;
 }
