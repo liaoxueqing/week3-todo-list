@@ -94,12 +94,12 @@ class ToDoList extends Component {
 }
 // export default ToDoList;
 
-const mapActionToState = state => {
+const mapStateToProps = state => {
   return {
     todos: state.todos
   };
 };
-const mapActionToDispatch = {
+const mapDispatchToProps = {
   editTodo,
   completeTodo,
   addTodo,
@@ -109,6 +109,6 @@ const mapActionToDispatch = {
   // noEditTodo
 };
 export default connect(
-  mapActionToState,
-  mapActionToDispatch
+  mapStateToProps,
+  mapDispatchToProps
 )(ToDoList);
