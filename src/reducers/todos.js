@@ -15,7 +15,7 @@ const initialState = {
     name: 'todolist1',
     status: false,
     completed: false,
-    generateTime: '2018 - 7 - 18'
+    generateTime: '2018-7-26'
   },
   searchItem: '',
   myTodos: [

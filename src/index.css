@@ -8,7 +8,7 @@ body {
   margin: auto;
 }
 .table thead {
-  background-color: #555;
+  background-color: rgb(4, 109, 245);
   color: #eee;
 }
 .margin-div {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { goBack } from 'connected-react-router';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 class ToDoList extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +10,7 @@ class ToDoList extends Component {
     const detailTodo = this.props.todos.detailTodo;
     return (
       <div className="text-center margin-div">
-        <h1>DETAIL TODO INFO</h1>
+        <h1>Detail TODO INFO</h1>
         <table className="table">
           <thead>
             <tr>
@@ -22,11 +22,12 @@ class ToDoList extends Component {
           <tbody>
             <tr>
               <td>{detailTodo.name}</td>
-              <td>{detailTodo.completed ? 'yes' : 'no'}</td>
+              <td>{detailTodo.completed ? 'YES' : 'NO'}</td>
               <td>{detailTodo.generateTime}</td>
             </tr>
           </tbody>
         </table>
+
         <button
           onClick={() => {
             browserHistory.push('/');

@@ -74,13 +74,7 @@ class ToDoList extends Component {
             <tbody>
               {myTodos.map(item => {
                 return (
-                  <tr
-                    key={item.id}
-                    onClick={() => {
-                      this.props.setDetailTodo(item.id);
-                      browserHistory.push('/todoInfo');
-                    }}
-                  >
+                  <tr key={item.id}>
                     <td>
                       <input
                         type="checkbox"
@@ -97,6 +91,10 @@ class ToDoList extends Component {
                       // onBlur={e => {
                       //   this.props.editTodo(item.id, e.target.innerHTML);
                       // }}
+                      onClick={() => {
+                        this.props.setDetailTodo(item.id);
+                        browserHistory.push('/todoInfo');
+                      }}
                     >
                       {item.completed ? <del>{item.name}</del> : item.name}
                     </td>
