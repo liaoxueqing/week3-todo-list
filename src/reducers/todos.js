@@ -79,7 +79,12 @@ export default function todos(state = initialState, action) {
       };
 
     case GOT_TODOS:
-      return action.todos;
+      return {
+        filterTodos: state.filterTodos,
+        detailTodo: state.detailTodo,
+        searchItem: state.searchItem,
+        myTodos: action.todos
+      };
 
     case COMPLETE_TODO:
       state.myTodos.map(todo => {
