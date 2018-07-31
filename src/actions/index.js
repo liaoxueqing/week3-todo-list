@@ -9,7 +9,7 @@ export const gotTodos = todos => ({ type: 'GOT_TODOS', todos });
 export const getTodosFromServer = () => dispatch => {
   // return fetch('./api/todos')
   return fetch('./todos.json')
-    .then(data => data.json())
+    .then(response => response.json())
     .then(todos => {
       return dispatch({
         type: 'GOT_TODOS',

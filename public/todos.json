@@ -1,0 +1,34 @@
+{
+  "filterTodos": [],
+  "detailTodo": {
+    "id": 1,
+    "name": "todolist1",
+    "status": false,
+    "completed": false,
+    "generateTime": "2018-7-26"
+  },
+  "searchItem": "",
+  "myTodos": [
+    {
+      "id": 1,
+      "name": "new todolist1",
+      "status": false,
+      "completed": false,
+      "generateTime": "2018-7-26"
+    },
+    {
+      "id": 2,
+      "name": "new todolist2",
+      "status": false,
+      "completed": false,
+      "generateTime": "2018-7-26"
+    },
+    {
+      "id": 3,
+      "name": "new todolist3",
+      "status": false,
+      "completed": false,
+      "generateTime": "2018-7-26"
+    }
+  ]
+}
