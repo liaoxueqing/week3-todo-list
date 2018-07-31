@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
@@ -13,10 +14,9 @@ import App from './components/App';
 import TodoInfo from './components/TodoInfo';
 
 const middleware = routerMiddleware(browserHistory);
-var store = createStore(reducers, applyMiddleware(middleware));
+var store = createStore(reducers, applyMiddleware(middleware, thunk));
 
 const history = syncHistoryWithStore(browserHistory, store);
-// push('userInfo');
 
 render(
   <Provider store={store}>

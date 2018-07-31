@@ -9,11 +9,16 @@ import {
   deleteTodo,
   canEditTodo,
   searchTodo,
-  setDetailTodo
+  setDetailTodo,
+  gotTodos,
+  getTodosFromServer
 } from '../actions/index';
 class ToDoList extends Component {
   constructor(props) {
     super(props);
+  }
+  componentDidMount() {
+    this.props.getTodosFromServer();
   }
   render() {
     const today = new Date();
@@ -122,7 +127,9 @@ const mapDispatchToProps = {
   deleteTodo,
   canEditTodo,
   searchTodo,
-  setDetailTodo
+  setDetailTodo,
+  gotTodos,
+  getTodosFromServer
 };
 export default connect(
   mapStateToProps,

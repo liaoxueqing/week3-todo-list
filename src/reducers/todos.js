@@ -4,6 +4,7 @@ const COMPLETE_TODO = 'COMPLETE_TODO';
 const CAN_EDIT_TODO = 'CAN_EDIT_TODO';
 const SEARCH_TODO = 'SEARCH_TODO';
 const SET_DETAIL_TODO = 'SET_DETAIL_TODO';
+const GOT_TODOS = 'GOT_TODOS';
 /**
  * status:true可编辑状态
  * status:false不可编辑状态
@@ -76,6 +77,9 @@ export default function todos(state = initialState, action) {
         searchItem: state.searchItem,
         myTodos: [...state.myTodos]
       };
+
+    case GOT_TODOS:
+      return action.todos;
 
     case COMPLETE_TODO:
       state.myTodos.map(todo => {
