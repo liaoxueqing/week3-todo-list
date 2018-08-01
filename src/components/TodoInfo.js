@@ -23,7 +23,7 @@ class ToDoList extends Component {
             <tr>
               <td>{detailTodo.name}</td>
               <td>{detailTodo.completed ? 'YES' : 'NO'}</td>
-              <td>{detailTodo.generateTime}</td>
+              <td>{detailTodo.time}</td>
             </tr>
           </tbody>
         </table>

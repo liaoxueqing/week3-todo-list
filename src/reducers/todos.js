@@ -80,9 +80,7 @@ export default function todos(state = initialState, action) {
 
     case GOT_TODOS:
       return {
-        filterTodos: state.filterTodos,
-        detailTodo: state.detailTodo,
-        searchItem: state.searchItem,
+        ...state,
         myTodos: action.todos
       };
 
