@@ -12,7 +12,8 @@ import {
   searchTodo,
   setDetailTodo,
   gotTodos,
-  getTodosFromServer
+  getTodosFromServer,
+  deleteServer
 } from '../actions/index';
 class ToDoList extends Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class ToDoList extends Component {
       this.props.todos.filterTodos.length !== 0
         ? this.props.todos.filterTodos
         : this.props.todos.myTodos;
-    console.log('myTodos:', myTodos);
     return (
       <div className="text-center">
         <div className="text-center margin-div">
@@ -70,6 +70,7 @@ class ToDoList extends Component {
                 <th>content</th>
                 <th>time</th>
                 <th>task in todo</th>
+                <th>operater</th>
               </tr>
             </thead>
             <tbody>
@@ -80,7 +81,8 @@ class ToDoList extends Component {
                       <input
                         type="checkbox"
                         onChange={e => {
-                          this.props.completeTodo(item.id);
+                          this.props.deleteServer(item);
+                          // this.props.completeTodo(item.id);
                         }}
                       />
                     </td>
@@ -100,6 +102,15 @@ class ToDoList extends Component {
                       ) : (
                         <Task tasks={item.tasks} />
                       )}
+                    </td>
+                    <td>
+                      <button
+                      // onClick={() => {
+                      //   this.props.deleteTodo(item.id);
+                      // }}
+                      >
+                        删除
+                      </button>
                     </td>
                   </tr>
                 );
@@ -126,7 +137,8 @@ const mapDispatchToProps = {
   searchTodo,
   setDetailTodo,
   gotTodos,
-  getTodosFromServer
+  getTodosFromServer,
+  deleteServer
 };
 export default connect(
   mapStateToProps,

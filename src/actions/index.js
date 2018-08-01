@@ -13,7 +13,23 @@ export const getTodosFromServer = () => dispatch => {
       return response.json();
     })
     .then(todos => {
-      console.log('todos+++', todos);
+      return dispatch({
+        type: 'GOT_TODOS',
+        todos
+      });
+    });
+};
+// this.props.completeTodo(item.id);
+export const deleteServer = item => dispatch => {
+  console.log('item', item);
+  return fetch('/api/todos/' + item.id, {
+    method: 'PUT'
+  })
+    .then(response => {
+      console.log('response', response);
+    })
+    .then(todos => {
+      console.log('todos after comp', todos);
       return dispatch({
         type: 'GOT_TODOS',
         todos
