@@ -13,7 +13,8 @@ import {
   setDetailTodo,
   gotTodos,
   getTodosFromServer,
-  deleteServer
+  deleteServerTodo,
+  completeServerTodo
 } from '../actions/index';
 class ToDoList extends Component {
   constructor(props) {
@@ -81,7 +82,7 @@ class ToDoList extends Component {
                       <input
                         type="checkbox"
                         onChange={e => {
-                          this.props.deleteServer(item);
+                          this.props.completeServerTodo(item.id);
                           // this.props.completeTodo(item.id);
                         }}
                       />
@@ -105,11 +106,11 @@ class ToDoList extends Component {
                     </td>
                     <td>
                       <button
-                      // onClick={() => {
-                      //   this.props.deleteTodo(item.id);
-                      // }}
+                        onClick={() => {
+                          this.props.deleteServerTodo(item.id);
+                        }}
                       >
-                        删除
+                        X
                       </button>
                     </td>
                   </tr>
@@ -138,7 +139,8 @@ const mapDispatchToProps = {
   setDetailTodo,
   gotTodos,
   getTodosFromServer,
-  deleteServer
+  deleteServerTodo,
+  completeServerTodo
 };
 export default connect(
   mapStateToProps,

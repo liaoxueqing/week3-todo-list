@@ -5,6 +5,7 @@ const CAN_EDIT_TODO = 'CAN_EDIT_TODO';
 const SEARCH_TODO = 'SEARCH_TODO';
 const SET_DETAIL_TODO = 'SET_DETAIL_TODO';
 const GOT_TODOS = 'GOT_TODOS';
+const DELETE_TODO = 'DELETE_TODO';
 /**
  * status:true可编辑状态
  * status:false不可编辑状态
@@ -99,6 +100,19 @@ export default function todos(state = initialState, action) {
       };
 
     case CAN_EDIT_TODO:
+      state.myTodos.map(todo => {
+        if (todo.id === action.id) {
+          todo.status = !todo.status;
+        }
+        return todo;
+      });
+      return {
+        filterTodos: state.filterTodos,
+        detailTodo: state.detailTodo,
+        searchItem: state.searchItem,
+        myTodos: [...state.myTodos]
+      };
+    case DELETE_TODO:
       state.myTodos.map(todo => {
         if (todo.id === action.id) {
           todo.status = !todo.status;

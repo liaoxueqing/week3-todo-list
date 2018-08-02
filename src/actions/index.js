@@ -19,20 +19,39 @@ export const getTodosFromServer = () => dispatch => {
       });
     });
 };
-// this.props.completeTodo(item.id);
-export const deleteServer = item => dispatch => {
-  console.log('item', item);
-  return fetch('/api/todos/' + item.id, {
+export const completeServerTodo = id => dispatch => {
+  fetch('/api/todos/completed/' + id, {
     method: 'PUT'
   })
     .then(response => {
       console.log('response', response);
     })
-    .then(todos => {
-      console.log('todos after comp', todos);
-      return dispatch({
-        type: 'GOT_TODOS',
-        todos
+    .then(() => {
+      dispatch({
+        type: 'COMPLETE_TODO',
+        id
       });
+    });
+};
+export const deleteServerTodo = id => dispatch => {
+  return fetch('/api/todos/' + id, {
+    method: 'delete'
+  })
+    .then(response => {
+      console.log('response', response);
+    })
+    .then(() => {
+      console.log('todos after delete');
+      fetch('/api/todos')
+        .then(response => {
+          console.log(response);
+          return response.json();
+        })
+        .then(todos => {
+          return dispatch({
+            type: 'GOT_TODOS',
+            todos
+          });
+        });
     });
 };
