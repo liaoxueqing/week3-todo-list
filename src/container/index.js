@@ -16,9 +16,9 @@ export const loginToServer = (name, password) => dispatch => {
       return response.text();
     })
     .then(token => {
-      localStorage.token = token;
-      console.log('storage token', localStorage.token);
-      browserHistory.push('/');
+      localStorage.setItem(name.value, token);
+      console.log('storage token', localStorage.getItem('token'));
+      dispatch(browserHistory.push('/'));
     });
 };
 export const editTodo = (id, name) => ({ type: 'EDIT_TODO', id, name });
@@ -36,16 +36,16 @@ export const getTodosFromServer = () => dispatch => {
     beforeSend: function(xhr) {
       xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
     },
-    success: function(todos) {
-      console.log('data', todos);
+    success: function(data) {
+      console.log(data);
       dispatch({
         type: 'GOT_TODOS',
-        todos
+        data
       });
     },
     error: function(data) {
       if (data.status === 401) {
-        console.log('error');
+        dispatch(push('/login'));
       }
     }
   });

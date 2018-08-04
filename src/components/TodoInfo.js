@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { goBack } from 'connected-react-router';
 import { browserHistory } from 'react-router';
+import { goBack } from 'connected-react-router';
 class ToDoList extends Component {
   constructor(props) {
     super(props);

@@ -12,6 +12,7 @@ import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import reducers from './reducers';
 import App from './components/App';
 import TodoInfo from './components/TodoInfo';
+import Login from './components/Login';
 
 const middleware = routerMiddleware(browserHistory);
 var store = createStore(reducers, applyMiddleware(middleware, thunk));
@@ -22,7 +23,8 @@ render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App} />
-      <Route path="todoInfo" component={TodoInfo} />
+      <Route path="todoInfo/:id" component={TodoInfo} />
+      <Route path="/login" component={Login} />
     </Router>
   </Provider>,
   document.getElementById('root')
