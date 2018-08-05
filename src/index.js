@@ -13,6 +13,7 @@ import reducers from './reducers';
 import App from './components/App';
 import TodoInfo from './components/TodoInfo';
 import Login from './components/Login';
+import Register from './components/Register';
 
 const middleware = routerMiddleware(browserHistory);
 var store = createStore(reducers, applyMiddleware(middleware, thunk));
@@ -25,6 +26,7 @@ render(
       <Route path="/" component={App} />
       <Route path="todoInfo/:id" component={TodoInfo} />
       <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
     </Router>
   </Provider>,
   document.getElementById('root')

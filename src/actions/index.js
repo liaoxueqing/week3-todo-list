@@ -57,6 +57,25 @@ export const logOut = () => dispatch => {
   localStorage.removeItem('token');
   browserHistory.push('/login');
 };
+export const RegisterToServer = (name, password) => dispatch => {
+  fetch('/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: name.value,
+      password: password.value
+    })
+  })
+    .then(response => {
+      return response.text();
+    })
+    .then(data => {
+      console.log(data);
+      browserHistory.push('/login');
+    });
+};
 export const loginToServer = (name, password) => dispatch => {
   console.log(name, password);
   fetch('/api/login', {

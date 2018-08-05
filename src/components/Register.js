@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { loginToServer } from '../actions/index';
+import { RegisterToServer } from '../actions/index';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
@@ -10,14 +10,14 @@ class Login extends Component {
         className="justify-content-center text-center"
         style={{ marginTop: 80 }}
       >
-        <h1 className="mb-3">Login TODO</h1>
+        <h1 className="mb-3">Register TODO</h1>
         <a
           className="mb-3"
           onClick={() => {
-            browserHistory.push('/register');
+            browserHistory.push('/login');
           }}
         >
-          Go To Register
+          Have Account,&nbsp;Go To Login
         </a>
         <div className="form-group row">
           <div className="mx-auto" style={{ width: 560 }}>
@@ -49,23 +49,19 @@ class Login extends Component {
           <button
             className="btn ml-1 btn-block btn-primary"
             onClick={() => {
-              this.props.loginToServer(this.name, this.password);
+              this.props.RegisterToServer(this.name, this.password);
             }}
           >
-            &nbsp;&nbsp;登录
+            &nbsp;&nbsp;注册
           </button>
         </div>
       </div>
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    isLogin: state.isLogin
-  };
-};
+const mapStateToProps = state => {};
 const mapDispatchToProps = {
-  loginToServer
+  RegisterToServer
 };
 export default connect(
   mapStateToProps,
