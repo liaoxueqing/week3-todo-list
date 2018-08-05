@@ -95,9 +95,7 @@ export default function todos(state = initialState, action) {
         return todo;
       });
       return {
-        filterTodos: state.filterTodos,
-        detailTodo: state.detailTodo,
-        searchItem: state.searchItem,
+        ...state,
         myTodos: [...state.myTodos]
       };
 
@@ -122,9 +120,7 @@ export default function todos(state = initialState, action) {
         return todo;
       });
       return {
-        filterTodos: state.filterTodos,
-        detailTodo: state.detailTodo,
-        searchItem: state.searchItem,
+        ...state,
         myTodos: [...state.myTodos]
       };
 

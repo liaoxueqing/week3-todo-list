@@ -11,9 +11,30 @@ body {
   background-color: rgb(4, 109, 245);
   color: #eee;
 }
+.table td,
+.table th {
+  padding: 6px 0px;
+}
 .margin-div {
-  margin: 10px auto;
+  margin-left: 0px;
+  padding: 0;
 }
 .login-field {
   margin-top: 10px auto !important;
+}
+ul.detail li {
+  display: block;
+  background-color: antiquewhite;
+  padding: 20px 0px 20px 10px;
+  border-bottom: 1px solid #777;
+}
+ul.detail li:last-child {
+  border-bottom: 0px;
+}
+ul.detail ul li {
+  border-bottom: 1px solid #777;
+  padding: 10px 0px;
+}
+ul.detail ul li :last-child {
+  border-bottom: 1px solid #777 !important;
 }

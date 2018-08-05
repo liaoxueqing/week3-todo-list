@@ -6,15 +6,15 @@ class Task extends Component {
 
   render() {
     return (
-      <div>
+      <ul style={{ marginBottom: 0 }}>
         {this.props.tasks.map(task => {
           return (
-            <div key={task.id} className="text-center">
+            <li key={task.id} className="text-left">
               {task.content}
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
     );
   }
 }

@@ -13,14 +13,14 @@ import {
   gotTodos,
   getTodosFromServer,
   deleteServerTodo,
-  completeServerTodo
+  completeServerTodo,
+  getUserInfo
 } from '../actions/index.js';
 class ToDoList extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    debugger;
     this.props.getTodosFromServer();
   }
   render() {
@@ -29,53 +29,67 @@ class ToDoList extends Component {
         ? this.props.todos.filterTodos
         : this.props.todos.myTodos;
     console.log('myTodos', myTodos);
+    // console.log("+++", this.props.userInfo.id);
     const result =
       myTodos == undefined ? (
-        <div>Nothing</div>
+        <div className="row mx-auto text-center">Nothing</div>
       ) : (
-        <div className="text-center">
-          <div className="text-center margin-div">
+        <div className="row mx-auto" style={{ width: 800 }}>
+          <div className="col-6 input-group margin-div">
             <input
               type="text"
-              placeholder="搜索item"
+              className="form-control"
+              placeholder="搜索TODO"
               ref={element => {
                 this.searchItem = element;
               }}
             />
-            <button
-              onClick={() => {
-                this.props.searchTodo(this.searchItem.value);
-              }}
-            >
-              搜索
-            </button>
+            <div className="input-group-append">
+              <button
+                onClick={() => {
+                  this.props.searchTodo(this.searchItem.value);
+                }}
+              >
+                搜索
+              </button>
+            </div>
           </div>
-          <div className="text-center margin-div">
+          <div className="col-6 input-group margin-div">
             <input
               type="text"
-              placeholder="新增item"
+              className="form-control"
+              placeholder="新增TODO"
               ref={element => {
                 this.lastItem = element;
               }}
             />
-            <button
-              onClick={() => {
-                const time = new Date();
-                this.props.addTodo(this.lastItem.value, time);
-              }}
-            >
-              新增
-            </button>
+            <div className="input-group-append">
+              <button
+                onClick={() => {
+                  const time = new Date();
+
+                  this.props.addTodo(
+                    this.lastItem.value,
+                    false,
+                    false,
+                    time,
+                    this.props.userInfo.id
+                  );
+                }}
+              >
+                新增
+              </button>
+            </div>
           </div>
-          <div className="text-center col-md-8 margin-div">
-            <table className="table">
+          <div className="row mx-auto" style={{ width: 800 }}>
+            <table className="table table-striped text-center">
               <thead>
                 <tr>
-                  <th>check</th>
-                  <th>content</th>
-                  <th>time</th>
-                  <th>task in todo</th>
-                  <th>operater</th>
+                  <th style={{ width: 100 }}>检查完成</th>
+                  <th style={{ width: 200 }}>todo内容</th>
+                  <th style={{ width: 180 }}>创建时间</th>
+                  <th style={{ width: 160 }}>任务分解</th>
+                  <th style={{ width: 160 }}>操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -87,17 +101,10 @@ class ToDoList extends Component {
                           type="checkbox"
                           onChange={e => {
                             this.props.completeServerTodo(item.id);
-                            // this.props.completeTodo(item.id);
                           }}
                         />
                       </td>
-                      <td
-                        contentEditable={item.status}
-                        onClick={() => {
-                          this.props.setDetailTodo(item.id);
-                          browserHistory.push('/todoInfo');
-                        }}
-                      >
+                      <td>
                         {item.completed ? <del>{item.name}</del> : item.name}
                       </td>
                       <td>{item.time}</td>
@@ -109,13 +116,22 @@ class ToDoList extends Component {
                         )}
                       </td>
                       <td>
-                        <button
+                        <a
                           onClick={() => {
                             this.props.deleteServerTodo(item.id);
                           }}
                         >
-                          X
-                        </button>
+                          delete
+                        </a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a
+                          onClick={() => {
+                            this.props.setDetailTodo(item.id);
+                            // browserHistory.push(`/todoInfo/${item.id}`);
+                          }}
+                        >
+                          detail
+                        </a>
                       </td>
                     </tr>
                   );
@@ -131,7 +147,8 @@ class ToDoList extends Component {
 
 const mapStateToProps = state => {
   return {
-    todos: state.todos
+    todos: state.todos,
+    userInfo: state.userInfo
   };
 };
 const mapDispatchToProps = {
@@ -145,7 +162,8 @@ const mapDispatchToProps = {
   gotTodos,
   getTodosFromServer,
   deleteServerTodo,
-  completeServerTodo
+  completeServerTodo,
+  getUserInfo
 };
 export default connect(
   mapStateToProps,
