@@ -23,6 +23,28 @@ export const addTodo = (name, deleted, completed, time, userId) => dispatch => {
       getTodosFromBack(dispatch);
     });
 };
+
+export const addTask = (todoId, taskContent) => dispatch => {
+  console.log('add task ---', todoId, taskContent);
+  fetch('/api/todos/addTask', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('token')
+    },
+    body: JSON.stringify({
+      content: taskContent,
+      todo_id: todoId
+    })
+  })
+    .then(response => {
+      return response.text();
+    })
+    .then(data => {
+      getTodosFromBack(dispatch);
+    });
+};
+
 export const deleteTodo = id => ({ type: 'DELETE_TODO', id });
 export const completeTodo = id => ({ type: 'COMPLETE_TODO', id });
 export const canEditTodo = id => ({ type: 'CAN_EDIT_TODO', id });

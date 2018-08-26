@@ -12,7 +12,7 @@ class Login extends Component {
       >
         <h1 className="mb-3">Login TODO</h1>
         <a
-          className="mb-3"
+          className="btn btn-block"
           onClick={() => {
             browserHistory.push('/register');
           }}

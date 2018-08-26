@@ -14,12 +14,23 @@ import {
   getTodosFromServer,
   deleteServerTodo,
   completeServerTodo,
-  getUserInfo
+  getUserInfo,
+  addTask
 } from '../actions/index.js';
 class ToDoList extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      taskAddState: false,
+      currentTodo: null
+    };
   }
+  setTaskAddState = item => {
+    this.setState({
+      taskAddState: !this.state.taskAddState,
+      currentTodo: item
+    });
+  };
   componentDidMount() {
     this.props.getTodosFromServer();
   }
@@ -85,11 +96,11 @@ class ToDoList extends Component {
             <table className="table table-striped text-center">
               <thead>
                 <tr>
-                  <th style={{ width: 100 }}>检查完成</th>
+                  <th style={{ width: 80 }}>检查完成</th>
                   <th style={{ width: 200 }}>todo内容</th>
-                  <th style={{ width: 180 }}>创建时间</th>
-                  <th style={{ width: 160 }}>任务分解</th>
-                  <th style={{ width: 160 }}>操作</th>
+                  <th style={{ width: 120 }}>创建时间</th>
+                  <th style={{ width: 180 }}>任务分解</th>
+                  <th style={{ width: 200 }}>操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -132,12 +143,47 @@ class ToDoList extends Component {
                         >
                           detail
                         </a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a
+                          onClick={() => {
+                            this.setTaskAddState(item);
+                          }}
+                        >
+                          新增task
+                        </a>
                       </td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
+            {this.state.taskAddState ? (
+              <div className="col-12 input-group margin-div" id="addTask">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="新增Task"
+                  ref={element => {
+                    this.lastTask = element;
+                  }}
+                />
+                <div className="input-group-append">
+                  <button
+                    onClick={() => {
+                      this.setTaskAddState();
+                      this.props.addTask(
+                        this.state.currentTodo.id,
+                        this.lastTask.value
+                      );
+                    }}
+                  >
+                    新增
+                  </button>
+                </div>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       );
@@ -163,7 +209,8 @@ const mapDispatchToProps = {
   getTodosFromServer,
   deleteServerTodo,
   completeServerTodo,
-  getUserInfo
+  getUserInfo,
+  addTask
 };
 export default connect(
   mapStateToProps,
