@@ -1,28 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import { goBack } from 'connected-react-router';
 import Task from './Task';
+import { getTodoFromServerById } from '../actions/index.js';
 class ToDoList extends Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    this.props.getTodoFromServerById();
+  }
   render() {
-    let start = window.location.href.lastIndexOf('/');
-    const detailTodoId = window.location.href.substring(start + 1);
-    // console.log("+++=", this.props.todos.detailTodo);
-    // const detailTodoId = localStorage.detailTodo;
-    console.log(detailTodoId);
-    console.log(this.props.todos.myTodos);
-    let detailTodo = '';
-    for (let i = 0; i < this.props.todos.myTodos.length; i++) {
-      if (this.props.todos.myTodos[i].id == detailTodoId) {
-        console.log('find');
-        detailTodo = this.props.todos.myTodos[i];
-      }
-    }
-    console.log(detailTodo);
-
+    let detailTodo = this.props.todos.detailTodo;
     if (detailTodo)
       return (
         <div>
@@ -33,7 +23,7 @@ class ToDoList extends Component {
             <label
               className="mx-auto"
               onClick={() => {
-                browserHistory.push('/');
+                hashHistory.push('/todos');
               }}
             >
               Click Here Go Back
@@ -69,7 +59,7 @@ class ToDoList extends Component {
           <label
             className="mx-auto"
             onClick={() => {
-              browserHistory.push('/');
+              hashHistory.push('/');
             }}
           >
             Click Here Go Back
@@ -86,7 +76,8 @@ const mapStateToProps = state => {
   };
 };
 const mapDispatchToProps = {
-  goBack
+  goBack,
+  getTodoFromServerById
 };
 export default connect(
   mapStateToProps,

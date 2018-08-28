@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { loginToServer } from '../actions/index';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 class Login extends Component {
   render() {
@@ -14,7 +14,7 @@ class Login extends Component {
         <a
           className="btn btn-block"
           onClick={() => {
-            browserHistory.push('/register');
+            hashHistory.push('/register');
           }}
         >
           Go To Register

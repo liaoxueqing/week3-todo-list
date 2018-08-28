@@ -139,17 +139,9 @@ export default function todos(state = initialState, action) {
         myTodos: [...state.myTodos]
       };
     case SET_DETAIL_TODO:
-      let detailTodoInfo = {};
-      const len = state.myTodos.length;
-      for (let i = 0; i < len; i++) {
-        if (state.myTodos[i].id === action.id) {
-          detailTodoInfo = Object.assign({}, state.myTodos[i]);
-        }
-      }
-
       return {
         filterTodos: state.filterTodos,
-        detailTodo: detailTodoInfo,
+        detailTodo: action.detailTodo,
         searchItem: state.searchItem,
         myTodos: state.myTodos
       };

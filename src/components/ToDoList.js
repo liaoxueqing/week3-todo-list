@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import Task from './Task.js';
 import {
   editTodo,
@@ -9,7 +9,6 @@ import {
   deleteTodo,
   canEditTodo,
   searchTodo,
-  setDetailTodo,
   gotTodos,
   getTodosFromServer,
   deleteServerTodo,
@@ -137,8 +136,8 @@ class ToDoList extends Component {
                         &nbsp;&nbsp;&nbsp;
                         <a
                           onClick={() => {
-                            this.props.setDetailTodo(item.id);
-                            // browserHistory.push(`/todoInfo/${item.id}`);
+                            localStorage.detailTodo = item.id;
+                            hashHistory.push(`/todos/${item.id}`);
                           }}
                         >
                           detail
@@ -204,7 +203,6 @@ const mapDispatchToProps = {
   deleteTodo,
   canEditTodo,
   searchTodo,
-  setDetailTodo,
   gotTodos,
   getTodosFromServer,
   deleteServerTodo,

@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import $ from 'jquery';
 export const editTodo = (id, name) => ({ type: 'EDIT_TODO', id, name });
 export const addTodo = (name, deleted, completed, time, userId) => dispatch => {
@@ -49,12 +49,24 @@ export const deleteTodo = id => ({ type: 'DELETE_TODO', id });
 export const completeTodo = id => ({ type: 'COMPLETE_TODO', id });
 export const canEditTodo = id => ({ type: 'CAN_EDIT_TODO', id });
 export const searchTodo = searchItem => ({ type: 'SEARCH_TODO', searchItem });
-// export const setDetailTodo = id => ({ type: "SET_DETAIL_TODO", id });
-export const setDetailTodo = id => dispatch => {
-  dispatch({ type: 'SET_DETAIL_TODO', id });
-  localStorage.detailTodo = id;
-  browserHistory.push(`/todoInfo/${id}`);
+export const getTodoFromServerById = () => dispatch => {
+  const id = localStorage.detailTodo;
+  $.ajax({
+    method: 'GET',
+    url: '/api/todos/' + id,
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+    },
+    success: function(detailTodo) {
+      dispatch({ type: 'SET_DETAIL_TODO', detailTodo });
+    }
+  });
 };
+// export const setDetailTodo = id => dispatch => {
+//   dispatch({ type: "SET_DETAIL_TODO", id });
+//   localStorage.detailTodo = id;
+//   hashHistory.push(`/todoInfo/${id}`);
+// };
 export const gotTodos = todos => ({ type: 'GOT_TODOS', todos });
 export const setUser = (id, name) => ({ type: 'SET_USER', id, name });
 export const getUserInfo = () => dispatch => {
@@ -77,7 +89,7 @@ export const getUserInfo = () => dispatch => {
 };
 export const logOut = () => dispatch => {
   localStorage.removeItem('token');
-  browserHistory.push('/login');
+  hashHistory.push('/');
 };
 export const RegisterToServer = (name, password) => dispatch => {
   fetch('/api/users', {
@@ -95,7 +107,7 @@ export const RegisterToServer = (name, password) => dispatch => {
     })
     .then(data => {
       console.log(data);
-      browserHistory.push('/login');
+      hashHistory.push('/');
     });
 };
 export const loginToServer = (name, password) => dispatch => {
@@ -116,7 +128,7 @@ export const loginToServer = (name, password) => dispatch => {
     .then(token => {
       localStorage.token = token;
       console.log('storage token', localStorage.token);
-      browserHistory.push('/');
+      hashHistory.push('/todos');
     });
 };
 export const getTodosFromServer = () => dispatch => {

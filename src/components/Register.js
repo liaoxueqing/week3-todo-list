@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { RegisterToServer } from '../actions/index';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 class Login extends Component {
   render() {
@@ -14,7 +14,7 @@ class Login extends Component {
         <a
           className="mb-3"
           onClick={() => {
-            browserHistory.push('/login');
+            hashHistory.push('/');
           }}
         >
           Have Account,&nbsp;Go To Login
